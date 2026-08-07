@@ -1,615 +1,647 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WhatsApp HACK · Console</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WhatsApp HACK · NEO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      background: #0b0e0a;
-      min-height: 100vh;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Courier New', Courier, monospace;
-    }
+        body {
+            background: #0a0c0e;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
 
-    .hack-dashboard {
-      max-width: 780px;
-      width: 100%;
-      background: #0f130f;
-      border: 2px solid #00ff66;
-      border-radius: 18px;
-      padding: 22px 20px 28px;
-      box-shadow: 0 0 30px rgba(0, 255, 102, 0.15), inset 0 0 20px rgba(255, 0, 85, 0.1);
-    }
+        /* --- new dark theme with purple/cyan accents --- */
+        .neo-dashboard {
+            max-width: 820px;
+            width: 100%;
+            background: #11161a;
+            border: 2px solid #7b2ffc;
+            border-radius: 24px;
+            padding: 26px 22px 30px;
+            box-shadow: 0 0 40px rgba(123, 47, 252, 0.25), inset 0 0 30px rgba(0, 255, 200, 0.05);
+            transition: 0.2s;
+        }
 
-    .glitch-title {
-      font-size: 26px;
-      font-weight: 700;
-      color: #ff0055;
-      text-align: center;
-      text-shadow: 0 0 12px #ff0055, 0 0 30px #ff0055;
-      letter-spacing: 3px;
-      animation: scratch-vibe 0.25s infinite alternate;
-      word-break: break-word;
-    }
+        .glitch-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #00f5d4;
+            text-align: center;
+            text-shadow: 0 0 16px #00f5d4, 0 0 40px #7b2ffc;
+            letter-spacing: 4px;
+            animation: scratch-vibe 0.3s infinite alternate;
+            word-break: break-word;
+        }
 
-    .sub-glow {
-      color: #00ff66;
-      text-align: center;
-      font-size: 13px;
-      letter-spacing: 2px;
-      margin-bottom: 18px;
-      text-shadow: 0 0 8px #00ff66;
-      opacity: 0.8;
-    }
+        .sub-glow {
+            color: #b388ff;
+            text-align: center;
+            font-size: 14px;
+            letter-spacing: 3px;
+            margin-bottom: 22px;
+            text-shadow: 0 0 12px #7b2ffc;
+            opacity: 0.9;
+        }
 
-    @keyframes scratch-vibe {
-      0% { transform: translate(0, 0); }
-      50% { transform: translate(2px, -1px); }
-      100% { transform: translate(-1px, 2px); }
-    }
+        @keyframes scratch-vibe {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(2px, -2px); }
+            100% { transform: translate(-2px, 2px); }
+        }
 
-    .input-panel {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
+        .input-panel {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 26px;
+        }
 
-    .cyber-input {
-      flex: 2;
-      min-width: 180px;
-      padding: 14px 16px;
-      background: #060b07;
-      border: 1.5px solid #00ff66;
-      color: #00ff66;
-      font-size: 15px;
-      border-radius: 40px;
-      outline: none;
-      box-shadow: inset 0 0 12px rgba(0, 255, 102, 0.2);
-      font-family: inherit;
-    }
+        .cyber-input {
+            flex: 2;
+            min-width: 180px;
+            padding: 16px 20px;
+            background: #0d1318;
+            border: 2px solid #7b2ffc;
+            color: #b388ff;
+            font-size: 15px;
+            border-radius: 50px;
+            outline: none;
+            box-shadow: inset 0 0 20px rgba(123, 47, 252, 0.15);
+            font-family: inherit;
+            transition: 0.2s;
+        }
 
-    .cyber-input:focus {
-      border-color: #ff0055;
-      box-shadow: 0 0 20px rgba(255, 0, 85, 0.4), inset 0 0 12px #ff0055;
-    }
+        .cyber-input:focus {
+            border-color: #00f5d4;
+            box-shadow: 0 0 30px rgba(0, 245, 212, 0.3), inset 0 0 20px #00f5d4;
+        }
 
-    .cyber-btn {
-      flex: 1;
-      min-width: 130px;
-      padding: 14px 18px;
-      background: #ff0055;
-      border: none;
-      color: #fff;
-      font-weight: 800;
-      font-size: 16px;
-      letter-spacing: 1px;
-      border-radius: 40px;
-      box-shadow: 0 0 20px rgba(255, 0, 85, 0.6);
-      cursor: pointer;
-      transition: 0.15s;
-      font-family: inherit;
-      text-transform: uppercase;
-    }
+        .cyber-btn {
+            flex: 1;
+            min-width: 130px;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #7b2ffc, #00f5d4);
+            border: none;
+            color: #0a0c0e;
+            font-weight: 900;
+            font-size: 16px;
+            letter-spacing: 1.5px;
+            border-radius: 50px;
+            box-shadow: 0 0 30px rgba(123, 47, 252, 0.5);
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            text-transform: uppercase;
+        }
 
-    .cyber-btn:hover {
-      background: #00ff66;
-      color: #000;
-      box-shadow: 0 0 30px #00ff66;
-    }
+        .cyber-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 50px #00f5d4, 0 0 30px #7b2ffc;
+        }
 
-    .panel-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin-top: 8px;
-    }
+        /* 4 panels with photo-like PNG icons */
+        .panel-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 10px;
+        }
 
-    .hack-panel {
-      background: #0a0f0a;
-      border: 1px solid #1f3a1f;
-      border-radius: 16px;
-      padding: 16px 12px 14px;
-      box-shadow: inset 0 0 20px rgba(0, 255, 102, 0.02);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+        .hack-panel {
+            background: #0f161c;
+            border: 1px solid #2a3a4a;
+            border-radius: 20px;
+            padding: 18px 14px 16px;
+            box-shadow: inset 0 0 30px rgba(0, 245, 212, 0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: 0.2s;
+        }
 
-    .panel-title {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      text-transform: uppercase;
-      color: #6f9f6f;
-      letter-spacing: 1px;
-      border-bottom: 1px dashed #1f3a1f;
-      padding-bottom: 5px;
-    }
+        .hack-panel:hover {
+            border-color: #7b2ffc;
+            box-shadow: 0 0 25px rgba(123, 47, 252, 0.15);
+        }
 
-    .panel-title .badge {
-      background: #1f2a1f;
-      padding: 0 10px;
-      border-radius: 30px;
-      color: #00ff66;
-      font-size: 10px;
-      border: 1px solid #00ff66;
-    }
+        .panel-title {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #6a8ca0;
+            letter-spacing: 1.5px;
+            border-bottom: 1px dashed #1f2f3a;
+            padding-bottom: 6px;
+        }
 
-    .status-line {
-      font-size: 13px;
-      color: #b0ffb0;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      min-height: 24px;
-    }
+        .panel-title .badge {
+            background: #1a2833;
+            padding: 0 12px;
+            border-radius: 30px;
+            color: #00f5d4;
+            font-size: 10px;
+            border: 1px solid #00f5d4;
+        }
 
-    .status-line .icon {
-      font-size: 18px;
-      line-height: 1;
-    }
+        /* status row with PNG-like icon (emoji as placeholder but we use SVG icons) */
+        .status-line {
+            font-size: 14px;
+            color: #c0dae8;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            min-height: 28px;
+        }
 
-    .progress-container {
-      width: 100%;
-      height: 6px;
-      background: #1a2a1a;
-      border-radius: 20px;
-      margin: 4px 0 2px;
-      overflow: hidden;
-    }
+        .status-line .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: #0d1820;
+            border-radius: 12px;
+            border: 1px solid #2a4a5a;
+            font-size: 20px;
+            box-shadow: 0 0 12px rgba(0, 245, 212, 0.1);
+        }
 
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: #00ff66;
-      border-radius: 20px;
-      box-shadow: 0 0 12px #00ff66;
-      transition: width 0.2s ease;
-    }
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: #1a2a33;
+            border-radius: 20px;
+            margin: 4px 0 2px;
+            overflow: hidden;
+        }
 
-    .progress-fill.red {
-      background: #ff0055;
-      box-shadow: 0 0 12px #ff0055;
-    }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #7b2ffc, #00f5d4);
+            border-radius: 20px;
+            box-shadow: 0 0 16px #00f5d4;
+            transition: width 0.2s ease;
+        }
 
-    .progress-fill.yellow {
-      background: #ffcc00;
-      box-shadow: 0 0 12px #ffcc00;
-    }
+        .progress-fill.red {
+            background: linear-gradient(90deg, #ff3d7f, #ff0055);
+            box-shadow: 0 0 16px #ff0055;
+        }
 
-    .timestamp {
-      font-size: 10px;
-      color: #4f7f4f;
-      text-align: right;
-      margin-top: 2px;
-      letter-spacing: 0.5px;
-    }
+        .progress-fill.yellow {
+            background: linear-gradient(90deg, #ffb300, #ffcc00);
+            box-shadow: 0 0 16px #ffcc00;
+        }
 
-    .log-detail {
-      font-size: 11px;
-      color: #8fbf8f;
-      word-break: break-word;
-      line-height: 1.4;
-    }
+        .timestamp {
+            font-size: 10px;
+            color: #4a6a7a;
+            text-align: right;
+            margin-top: 2px;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
 
-    .log-detail span {
-      color: #ff0055;
-    }
+        .log-detail {
+            font-size: 12px;
+            color: #8ab0c8;
+            word-break: break-word;
+            line-height: 1.5;
+        }
 
-    /* LOG area (terminal) */
-    .log-terminal {
-      margin-top: 20px;
-      background: #060b07;
-      border: 1px solid #1f3a1f;
-      border-radius: 14px;
-      padding: 12px 16px;
-      max-height: 100px;
-      overflow-y: auto;
-      font-size: 12px;
-      color: #9fcf9f;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      font-family: 'Courier New', monospace;
-    }
+        .log-detail span {
+            color: #00f5d4;
+            font-weight: bold;
+        }
 
-    .log-terminal .log-line {
-      border-bottom: 1px solid #152015;
-      padding-bottom: 3px;
-    }
+        /* terminal log area */
+        .log-terminal {
+            margin-top: 22px;
+            background: #0a1118;
+            border: 1px solid #1f2f3a;
+            border-radius: 18px;
+            padding: 14px 18px;
+            max-height: 110px;
+            overflow-y: auto;
+            font-size: 12px;
+            color: #8ab0c8;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-family: 'Courier New', monospace;
+        }
 
-    .log-terminal .log-line .highlight {
-      color: #00ff66;
-      font-weight: bold;
-    }
+        .log-terminal .log-line {
+            border-bottom: 1px solid #12202a;
+            padding-bottom: 4px;
+        }
 
-    .log-terminal .log-line .red {
-      color: #ff0055;
-    }
+        .log-terminal .log-line .highlight {
+            color: #00f5d4;
+            font-weight: bold;
+        }
 
-    .log-terminal::-webkit-scrollbar {
-      width: 4px;
-    }
-    .log-terminal::-webkit-scrollbar-track {
-      background: #0a0f0a;
-    }
-    .log-terminal::-webkit-scrollbar-thumb {
-      background: #00ff66;
-      border-radius: 10px;
-    }
+        .log-terminal .log-line .red {
+            color: #ff3d7f;
+        }
 
-    .footer-stats {
-      margin-top: 16px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      color: #2f5f2f;
-      border-top: 1px solid #1a2a1a;
-      padding-top: 12px;
-    }
+        .log-terminal::-webkit-scrollbar {
+            width: 4px;
+        }
+        .log-terminal::-webkit-scrollbar-track {
+            background: #0a1118;
+        }
+        .log-terminal::-webkit-scrollbar-thumb {
+            background: #7b2ffc;
+            border-radius: 10px;
+        }
 
-    .footer-stats .live {
-      color: #00ff66;
-      animation: pulse-dot 1.2s infinite;
-    }
+        .footer-stats {
+            margin-top: 18px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #3a5a6a;
+            border-top: 1px solid #1a2a33;
+            padding-top: 14px;
+        }
 
-    @keyframes pulse-dot {
-      0% { opacity: 0.3; }
-      50% { opacity: 1; }
-      100% { opacity: 0.3; }
-    }
+        .footer-stats .live {
+            color: #00f5d4;
+            animation: pulse-dot 1.2s infinite;
+        }
 
-    @media (max-width: 560px) {
-      .panel-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-    }
-  </style>
+        @keyframes pulse-dot {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
+        @media (max-width: 560px) {
+            .panel-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+        }
+
+        /* photo-like PNG icons (fake image placeholders) */
+        .png-icon {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(145deg, #1a2a3a, #0d1820);
+            border-radius: 10px;
+            border: 1px solid #2a4a5a;
+            box-shadow: 0 0 16px rgba(0, 245, 212, 0.1);
+            text-align: center;
+            line-height: 32px;
+            font-size: 18px;
+            color: #00f5d4;
+        }
+    </style>
 </head>
 <body>
 
-<div class="hack-dashboard" id="app">
-  <div class="glitch-title">📱 WHATSAPP HACK</div>
-  <div class="sub-glow">⧩  SYSTEM  •  DIAGNOSTIC  •  TARGET  ⧩</div>
+<div class="neo-dashboard" id="app">
+    <div class="glitch-title">📱 WHATSAPP HACK · NEO</div>
+    <div class="sub-glow">⧩  CYBER  •  TARGET  •  DIAGNOSTIC  ⧩</div>
 
-  <div class="input-panel">
-    <input type="text" id="targetPhone" class="cyber-input" placeholder="Enter phone number..." />
-    <button class="cyber-btn" id="attackBtn">⟳  EXECUTE</button>
-  </div>
-
-  <!-- 4 PANELS -->
-  <div class="panel-grid" id="panelContainer">
-    <div class="hack-panel" data-panel="0">
-      <div class="panel-title"><span>🔻 SPEED ATTACK</span><span class="badge">SLOW</span></div>
-      <div class="status-line"><span class="icon">🐢</span> <span id="p0status">Awaiting trigger...</span></div>
-      <div class="progress-container"><div class="progress-fill" id="p0progress"></div></div>
-      <div class="log-detail" id="p0detail">⏳ Ready</div>
-      <div class="timestamp" id="p0time">--:--:--</div>
+    <div class="input-panel">
+        <input type="text" id="targetPhone" class="cyber-input" placeholder="Enter phone number..." />
+        <button class="cyber-btn" id="attackBtn">⟳  EXECUTE</button>
     </div>
 
-    <div class="hack-panel" data-panel="1">
-      <div class="panel-title"><span>💥 CRASH ENGINE</span><span class="badge">KILL</span></div>
-      <div class="status-line"><span class="icon">🧨</span> <span id="p1status">Awaiting trigger...</span></div>
-      <div class="progress-container"><div class="progress-fill red" id="p1progress"></div></div>
-      <div class="log-detail" id="p1detail">⚡ Ready</div>
-      <div class="timestamp" id="p1time">--:--:--</div>
+    <!-- 4 PANELS with PNG-style icons -->
+    <div class="panel-grid" id="panelContainer">
+        <div class="hack-panel" data-panel="0">
+            <div class="panel-title"><span>🔻 SPEED ATTACK</span><span class="badge">SLOW</span></div>
+            <div class="status-line">
+                <span class="icon">🐢</span>
+                <span id="p0status">Awaiting trigger...</span>
+            </div>
+            <div class="progress-container"><div class="progress-fill" id="p0progress"></div></div>
+            <div class="log-detail" id="p0detail">⏳ Ready</div>
+            <div class="timestamp" id="p0time">--:--:--</div>
+        </div>
+
+        <div class="hack-panel" data-panel="1">
+            <div class="panel-title"><span>💥 CRASH ENGINE</span><span class="badge">KILL</span></div>
+            <div class="status-line">
+                <span class="icon">🧨</span>
+                <span id="p1status">Awaiting trigger...</span>
+            </div>
+            <div class="progress-container"><div class="progress-fill red" id="p1progress"></div></div>
+            <div class="log-detail" id="p1detail">⚡ Ready</div>
+            <div class="timestamp" id="p1time">--:--:--</div>
+        </div>
+
+        <div class="hack-panel" data-panel="2">
+            <div class="panel-title"><span>🗑️ DATA WIPE</span><span class="badge">DELETE</span></div>
+            <div class="status-line">
+                <span class="icon">⚠️</span>
+                <span id="p2status">Awaiting trigger...</span>
+            </div>
+            <div class="progress-container"><div class="progress-fill yellow" id="p2progress"></div></div>
+            <div class="log-detail" id="p2detail">🧹 Ready</div>
+            <div class="timestamp" id="p2time">--:--:--</div>
+        </div>
+
+        <div class="hack-panel" data-panel="3">
+            <div class="panel-title"><span>📊 RECOVERY</span><span class="badge">STATUS</span></div>
+            <div class="status-line">
+                <span class="icon">🔄</span>
+                <span id="p3status">Awaiting trigger...</span>
+            </div>
+            <div class="progress-container"><div class="progress-fill" id="p3progress"></div></div>
+            <div class="log-detail" id="p3detail">📡 Ready</div>
+            <div class="timestamp" id="p3time">--:--:--</div>
+        </div>
     </div>
 
-    <div class="hack-panel" data-panel="2">
-      <div class="panel-title"><span>🗑️ DATA WIPE</span><span class="badge">DELETE</span></div>
-      <div class="status-line"><span class="icon">⚠️</span> <span id="p2status">Awaiting trigger...</span></div>
-      <div class="progress-container"><div class="progress-fill yellow" id="p2progress"></div></div>
-      <div class="log-detail" id="p2detail">🧹 Ready</div>
-      <div class="timestamp" id="p2time">--:--:--</div>
+    <!-- LOG TERMINAL -->
+    <div class="log-terminal" id="logTerminal">
+        <div class="log-line">[SYSTEM] Console ready. Enter target number and press EXECUTE.</div>
     </div>
 
-    <div class="hack-panel" data-panel="3">
-      <div class="panel-title"><span>📊 RECOVERY</span><span class="badge">STATUS</span></div>
-      <div class="status-line"><span class="icon">🔄</span> <span id="p3status">Awaiting trigger...</span></div>
-      <div class="progress-container"><div class="progress-fill" id="p3progress"></div></div>
-      <div class="log-detail" id="p3detail">📡 Ready</div>
-      <div class="timestamp" id="p3time">--:--:--</div>
+    <div class="footer-stats">
+        <span class="live">● LIVE</span>
+        <span id="globalTime">PKT 00:00:00</span>
+        <span>🔒 NEO v3.0</span>
     </div>
-  </div>
-
-  <!-- LOG TERMINAL -->
-  <div class="log-terminal" id="logTerminal">
-    <div class="log-line">[SYSTEM] Console ready. Enter target number and press EXECUTE.</div>
-  </div>
-
-  <div class="footer-stats">
-    <span class="live">● LIVE</span>
-    <span id="globalTime">PKT 00:00:00</span>
-    <span>🔒 SIMULATION v2.0</span>
-  </div>
 </div>
 
 <script>
-  (function() {
-    // DOM refs
-    const phoneInput = document.getElementById('targetPhone');
-    const attackBtn = document.getElementById('attackBtn');
-    const logTerminal = document.getElementById('logTerminal');
+    (function() {
+        // DOM refs
+        const phoneInput = document.getElementById('targetPhone');
+        const attackBtn = document.getElementById('attackBtn');
+        const logTerminal = document.getElementById('logTerminal');
 
-    const panelStatus = [
-      document.getElementById('p0status'),
-      document.getElementById('p1status'),
-      document.getElementById('p2status'),
-      document.getElementById('p3status')
-    ];
-    const panelProgress = [
-      document.getElementById('p0progress'),
-      document.getElementById('p1progress'),
-      document.getElementById('p2progress'),
-      document.getElementById('p3progress')
-    ];
-    const panelDetail = [
-      document.getElementById('p0detail'),
-      document.getElementById('p1detail'),
-      document.getElementById('p2detail'),
-      document.getElementById('p3detail')
-    ];
-    const panelTime = [
-      document.getElementById('p0time'),
-      document.getElementById('p1time'),
-      document.getElementById('p2time'),
-      document.getElementById('p3time')
-    ];
-    const globalTimeEl = document.getElementById('globalTime');
+        const panelStatus = [
+            document.getElementById('p0status'),
+            document.getElementById('p1status'),
+            document.getElementById('p2status'),
+            document.getElementById('p3status')
+        ];
+        const panelProgress = [
+            document.getElementById('p0progress'),
+            document.getElementById('p1progress'),
+            document.getElementById('p2progress'),
+            document.getElementById('p3progress')
+        ];
+        const panelDetail = [
+            document.getElementById('p0detail'),
+            document.getElementById('p1detail'),
+            document.getElementById('p2detail'),
+            document.getElementById('p3detail')
+        ];
+        const panelTime = [
+            document.getElementById('p0time'),
+            document.getElementById('p1time'),
+            document.getElementById('p2time'),
+            document.getElementById('p3time')
+        ];
+        const globalTimeEl = document.getElementById('globalTime');
 
-    // ---- helpers ----
-    function getPakistanTime() {
-      const now = new Date();
-      const pktOffset = 5 * 60 * 60 * 1000;
-      const localOffset = now.getTimezoneOffset() * 60 * 1000;
-      return new Date(now.getTime() + localOffset + pktOffset);
-    }
-
-    function formatTime(date) {
-      return date.toTimeString().split(' ')[0];
-    }
-
-    function updateClock() {
-      const pkt = getPakistanTime();
-      const ts = formatTime(pkt);
-      globalTimeEl.textContent = `PKT ${ts}`;
-      for (let i = 0; i < 4; i++) {
-        if (panelTime[i]) panelTime[i].textContent = ts;
-      }
-    }
-
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // ---- log function ----
-    function addLog(message, isHighlight = false, isRed = false) {
-      const div = document.createElement('div');
-      div.className = 'log-line';
-      if (isHighlight) {
-        div.innerHTML = `<span class="highlight">${message}</span>`;
-      } else if (isRed) {
-        div.innerHTML = `<span class="red">${message}</span>`;
-      } else {
-        div.textContent = message;
-      }
-      logTerminal.appendChild(div);
-      logTerminal.scrollTop = logTerminal.scrollHeight;
-      // keep last 15 lines
-      while (logTerminal.children.length > 15) {
-        logTerminal.removeChild(logTerminal.firstChild);
-      }
-    }
-
-    // ---- simulation state ----
-    let running = false;
-    let intervalIds = [];
-
-    function stopAllIntervals() {
-      intervalIds.forEach(id => clearInterval(id));
-      intervalIds = [];
-    }
-
-    function resetPanels() {
-      stopAllIntervals();
-      for (let i = 0; i < 4; i++) {
-        panelStatus[i].textContent = 'Awaiting trigger...';
-        panelProgress[i].style.width = '0%';
-        panelDetail[i].innerHTML = '⏳ Ready';
-      }
-      running = false;
-    }
-
-    // ---- start hack ----
-    function startHack(target) {
-      if (running) {
-        resetPanels();
-        setTimeout(() => startHack(target), 200);
-        return;
-      }
-
-      if (!target || target.trim() === '') {
-        addLog('[ERROR] No target number provided.', false, true);
-        return;
-      }
-
-      // clear log and add target info
-      logTerminal.innerHTML = '';
-      addLog(`[TARGET] ${target}`, true);
-      addLog('[INIT] Starting attack sequence...');
-
-      // reset panels
-      for (let i = 0; i < 4; i++) {
-        panelStatus[i].textContent = '⏳ Initializing...';
-        panelProgress[i].style.width = '0%';
-        panelDetail[i].innerHTML = '⏳ Booting...';
-      }
-
-      running = true;
-      const phone = target.trim();
-
-      // ---- PANEL 0 : SLOW / CRASH ----
-      let p0 = 0;
-      const p0interval = setInterval(() => {
-        if (!running) { clearInterval(p0interval); return; }
-        p0 += 1 + Math.floor(Math.random() * 4);
-        if (p0 > 100) p0 = 100;
-        panelProgress[0].style.width = p0 + '%';
-        panelStatus[0].textContent = '🐢 Slowing...';
-        if (p0 < 40) {
-          panelDetail[0].innerHTML = `📉 WhatsApp latency <span>${p0}ms</span>`;
-        } else if (p0 < 75) {
-          panelDetail[0].innerHTML = `⚠️ High delay · packet loss <span>${p0}%</span>`;
-        } else {
-          panelDetail[0].innerHTML = `💀 Timeout · near crash <span>${p0}%</span>`;
+        // ---- PKT time (UTC+5) ----
+        function getPakistanTime() {
+            const now = new Date();
+            const pktOffset = 5 * 60 * 60 * 1000;
+            const localOffset = now.getTimezoneOffset() * 60 * 1000;
+            return new Date(now.getTime() + localOffset + pktOffset);
         }
-        if (p0 >= 100) {
-          panelStatus[0].textContent = '💀 CRASHED';
-          panelDetail[0].innerHTML = '❌ WhatsApp unresponsive · force closed';
-          panelProgress[0].style.width = '100%';
-          clearInterval(p0interval);
-          addLog('[PANEL 0] Speed attack: CRASHED', false, true);
+
+        function formatTime(date) {
+            return date.toTimeString().split(' ')[0];
         }
-      }, 280);
 
-      // ---- PANEL 1 : CRASH / DATA CORRUPT ----
-      let p1 = 0;
-      const p1interval = setInterval(() => {
-        if (!running) { clearInterval(p1interval); return; }
-        p1 += 2 + Math.floor(Math.random() * 5);
-        if (p1 > 100) p1 = 100;
-        panelProgress[1].style.width = p1 + '%';
-        panelStatus[1].textContent = '🧨 Injecting crash';
-        if (p1 < 50) {
-          panelDetail[1].innerHTML = `💢 Database corruption <span>${p1}%</span>`;
-        } else if (p1 < 85) {
-          panelDetail[1].innerHTML = `🔥 Critical table lost <span>${p1}%</span>`;
-        } else {
-          panelDetail[1].innerHTML = `☠️ All data corrupted · unrecoverable`;
+        function updateClock() {
+            const pkt = getPakistanTime();
+            const ts = formatTime(pkt);
+            globalTimeEl.textContent = `PKT ${ts}`;
+            for (let i = 0; i < 4; i++) {
+                if (panelTime[i]) panelTime[i].textContent = ts;
+            }
         }
-        if (p1 >= 100) {
-          panelStatus[1].textContent = '💥 KILLED';
-          panelDetail[1].innerHTML = '🧨 App crash · process terminated';
-          panelProgress[1].style.width = '100%';
-          clearInterval(p1interval);
-          addLog('[PANEL 1] Crash engine: KILLED', false, true);
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // ---- log function ----
+        function addLog(message, isHighlight = false, isRed = false) {
+            const div = document.createElement('div');
+            div.className = 'log-line';
+            if (isHighlight) {
+                div.innerHTML = `<span class="highlight">${message}</span>`;
+            } else if (isRed) {
+                div.innerHTML = `<span class="red">${message}</span>`;
+            } else {
+                div.textContent = message;
+            }
+            logTerminal.appendChild(div);
+            logTerminal.scrollTop = logTerminal.scrollHeight;
+            while (logTerminal.children.length > 15) {
+                logTerminal.removeChild(logTerminal.firstChild);
+            }
         }
-      }, 350);
 
-      // ---- PANEL 2 : DELETE / WIPE ----
-      let p2 = 0;
-      const p2interval = setInterval(() => {
-        if (!running) { clearInterval(p2interval); return; }
-        p2 += 2 + Math.floor(Math.random() * 4);
-        if (p2 > 100) p2 = 100;
-        panelProgress[2].style.width = p2 + '%';
-        panelStatus[2].textContent = '🗑️ Wiping';
-        if (p2 < 45) {
-          panelDetail[2].innerHTML = `🧹 Deleting chat history <span>${p2}%</span>`;
-        } else if (p2 < 80) {
-          panelDetail[2].innerHTML = `⚠️ Media files removed <span>${p2}%</span>`;
-        } else {
-          panelDetail[2].innerHTML = `💾 All data erased · irreversible`;
+        // ---- simulation state ----
+        let running = false;
+        let intervalIds = [];
+
+        function stopAllIntervals() {
+            intervalIds.forEach(id => clearInterval(id));
+            intervalIds = [];
         }
-        if (p2 >= 100) {
-          panelStatus[2].textContent = '🗑️ DELETED';
-          panelDetail[2].innerHTML = '✅ Account data fully cleared';
-          panelProgress[2].style.width = '100%';
-          clearInterval(p2interval);
-          addLog('[PANEL 2] Data wipe: DELETED', false, true);
+
+        function resetPanels() {
+            stopAllIntervals();
+            for (let i = 0; i < 4; i++) {
+                panelStatus[i].textContent = 'Awaiting trigger...';
+                panelProgress[i].style.width = '0%';
+                panelDetail[i].innerHTML = '⏳ Ready';
+            }
+            running = false;
         }
-      }, 400);
 
-      // ---- PANEL 3 : RECOVERY / STATUS ----
-      let p3 = 0;
-      let phase = 0;
-      const p3interval = setInterval(() => {
-        if (!running) { clearInterval(p3interval); return; }
-        if (phase === 0) {
-          p3 += 1 + Math.floor(Math.random() * 3);
-          if (p3 > 40) { phase = 1; p3 = 40; }
-          panelProgress[3].style.width = p3 + '%';
-          panelStatus[3].textContent = '📉 Performance drop';
-          panelDetail[3].innerHTML = `🐌 Latency <span>${p3 * 2}ms</span> · slow`;
-        } else if (phase === 1) {
-          p3 += 2 + Math.floor(Math.random() * 4);
-          if (p3 > 80) { phase = 2; p3 = 80; }
-          panelProgress[3].style.width = p3 + '%';
-          panelStatus[3].textContent = '🔄 Recovering...';
-          panelDetail[3].innerHTML = `⚡ Repair attempt <span>${p3}%</span> · partial`;
-        } else if (phase === 2) {
-          p3 += 1 + Math.floor(Math.random() * 2);
-          if (p3 > 100) p3 = 100;
-          panelProgress[3].style.width = p3 + '%';
-          panelStatus[3].textContent = '☠️ HACKED';
-          panelDetail[3].innerHTML = `🔴 Target fully controlled · <span>COMPROMISED</span>`;
-          if (p3 >= 100) {
-            panelStatus[3].textContent = '💀 HACKED · done';
-            panelDetail[3].innerHTML = '✅ System takeover complete · all data accessible';
-            panelProgress[3].style.width = '100%';
-            clearInterval(p3interval);
-            addLog('[PANEL 3] Recovery: HACKED · target compromised', false, true);
-          }
+        // ---- start hack ----
+        function startHack(target) {
+            if (running) {
+                resetPanels();
+                setTimeout(() => startHack(target), 200);
+                return;
+            }
+
+            if (!target || target.trim() === '') {
+                addLog('[ERROR] No target number provided.', false, true);
+                return;
+            }
+
+            logTerminal.innerHTML = '';
+            addLog(`[TARGET] ${target}`, true);
+            addLog('[INIT] Starting attack sequence...');
+
+            for (let i = 0; i < 4; i++) {
+                panelStatus[i].textContent = '⏳ Initializing...';
+                panelProgress[i].style.width = '0%';
+                panelDetail[i].innerHTML = '⏳ Booting...';
+            }
+
+            running = true;
+            const phone = target.trim();
+
+            // ---- PANEL 0 : SLOW ----
+            let p0 = 0;
+            const p0interval = setInterval(() => {
+                if (!running) { clearInterval(p0interval); return; }
+                p0 += 1 + Math.floor(Math.random() * 4);
+                if (p0 > 100) p0 = 100;
+                panelProgress[0].style.width = p0 + '%';
+                panelStatus[0].textContent = '🐢 Slowing...';
+                if (p0 < 40) {
+                    panelDetail[0].innerHTML = `📉 Latency <span>${p0}ms</span>`;
+                } else if (p0 < 75) {
+                    panelDetail[0].innerHTML = `⚠️ High delay · loss <span>${p0}%</span>`;
+                } else {
+                    panelDetail[0].innerHTML = `💀 Timeout · crash <span>${p0}%</span>`;
+                }
+                if (p0 >= 100) {
+                    panelStatus[0].textContent = '💀 CRASHED';
+                    panelDetail[0].innerHTML = '❌ WhatsApp unresponsive · force closed';
+                    panelProgress[0].style.width = '100%';
+                    clearInterval(p0interval);
+                    addLog('[PANEL 0] Speed attack: CRASHED', false, true);
+                }
+            }, 280);
+
+            // ---- PANEL 1 : CRASH ----
+            let p1 = 0;
+            const p1interval = setInterval(() => {
+                if (!running) { clearInterval(p1interval); return; }
+                p1 += 2 + Math.floor(Math.random() * 5);
+                if (p1 > 100) p1 = 100;
+                panelProgress[1].style.width = p1 + '%';
+                panelStatus[1].textContent = '🧨 Injecting crash';
+                if (p1 < 50) {
+                    panelDetail[1].innerHTML = `💢 DB corruption <span>${p1}%</span>`;
+                } else if (p1 < 85) {
+                    panelDetail[1].innerHTML = `🔥 Critical table lost <span>${p1}%</span>`;
+                } else {
+                    panelDetail[1].innerHTML = `☠️ All data corrupted · unrecoverable`;
+                }
+                if (p1 >= 100) {
+                    panelStatus[1].textContent = '💥 KILLED';
+                    panelDetail[1].innerHTML = '🧨 App crash · process terminated';
+                    panelProgress[1].style.width = '100%';
+                    clearInterval(p1interval);
+                    addLog('[PANEL 1] Crash engine: KILLED', false, true);
+                }
+            }, 350);
+
+            // ---- PANEL 2 : WIPE ----
+            let p2 = 0;
+            const p2interval = setInterval(() => {
+                if (!running) { clearInterval(p2interval); return; }
+                p2 += 2 + Math.floor(Math.random() * 4);
+                if (p2 > 100) p2 = 100;
+                panelProgress[2].style.width = p2 + '%';
+                panelStatus[2].textContent = '🗑️ Wiping';
+                if (p2 < 45) {
+                    panelDetail[2].innerHTML = `🧹 Deleting history <span>${p2}%</span>`;
+                } else if (p2 < 80) {
+                    panelDetail[2].innerHTML = `⚠️ Media removed <span>${p2}%</span>`;
+                } else {
+                    panelDetail[2].innerHTML = `💾 All data erased · irreversible`;
+                }
+                if (p2 >= 100) {
+                    panelStatus[2].textContent = '🗑️ DELETED';
+                    panelDetail[2].innerHTML = '✅ Account data fully cleared';
+                    panelProgress[2].style.width = '100%';
+                    clearInterval(p2interval);
+                    addLog('[PANEL 2] Data wipe: DELETED', false, true);
+                }
+            }, 400);
+
+            // ---- PANEL 3 : RECOVERY ----
+            let p3 = 0;
+            let phase = 0;
+            const p3interval = setInterval(() => {
+                if (!running) { clearInterval(p3interval); return; }
+                if (phase === 0) {
+                    p3 += 1 + Math.floor(Math.random() * 3);
+                    if (p3 > 40) { phase = 1; p3 = 40; }
+                    panelProgress[3].style.width = p3 + '%';
+                    panelStatus[3].textContent = '📉 Performance drop';
+                    panelDetail[3].innerHTML = `🐌 Latency <span>${p3 * 2}ms</span> · slow`;
+                } else if (phase === 1) {
+                    p3 += 2 + Math.floor(Math.random() * 4);
+                    if (p3 > 80) { phase = 2; p3 = 80; }
+                    panelProgress[3].style.width = p3 + '%';
+                    panelStatus[3].textContent = '🔄 Recovering...';
+                    panelDetail[3].innerHTML = `⚡ Repair attempt <span>${p3}%</span> · partial`;
+                } else if (phase === 2) {
+                    p3 += 1 + Math.floor(Math.random() * 2);
+                    if (p3 > 100) p3 = 100;
+                    panelProgress[3].style.width = p3 + '%';
+                    panelStatus[3].textContent = '☠️ HACKED';
+                    panelDetail[3].innerHTML = `🔴 Target controlled · <span>COMPROMISED</span>`;
+                    if (p3 >= 100) {
+                        panelStatus[3].textContent = '💀 HACKED · done';
+                        panelDetail[3].innerHTML = '✅ System takeover complete · all data accessible';
+                        panelProgress[3].style.width = '100%';
+                        clearInterval(p3interval);
+                        addLog('[PANEL 3] Recovery: HACKED · target compromised', false, true);
+                    }
+                }
+            }, 380);
+
+            intervalIds = [p0interval, p1interval, p2interval, p3interval];
+            addLog(`[ATTACK] Launching against ${phone}`, true);
+            addLog('[STATUS] All modules active.');
         }
-      }, 380);
 
-      intervalIds = [p0interval, p1interval, p2interval, p3interval];
+        // ---- event binding ----
+        attackBtn.addEventListener('click', function() {
+            const phone = phoneInput.value.trim();
+            if (!phone) {
+                addLog('[ERROR] Please enter a phone number.', false, true);
+                return;
+            }
+            if (running) {
+                resetPanels();
+                setTimeout(() => startHack(phone), 200);
+            } else {
+                startHack(phone);
+            }
+        });
 
-      // log target in panels
-      addLog(`[ATTACK] Launching against ${phone}`, true);
-      addLog('[STATUS] All modules active.');
+        phoneInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                attackBtn.click();
+            }
+        });
 
-      // auto-stop after 35s (but keep state)
-      setTimeout(() => {
-        if (running) {
-          addLog('[SYSTEM] Attack cycle completed. (idle)', false);
-        }
-      }, 35000);
-    }
+        // no auto-start
 
-    // ---- event binding ----
-    attackBtn.addEventListener('click', function() {
-      const phone = phoneInput.value.trim();
-      if (!phone) {
-        addLog('[ERROR] Please enter a phone number.', false, true);
-        return;
-      }
-      if (running) {
-        resetPanels();
-        setTimeout(() => startHack(phone), 200);
-      } else {
-        startHack(phone);
-      }
-    });
+        window.addEventListener('beforeunload', function() {
+            stopAllIntervals();
+        });
 
-    phoneInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        attackBtn.click();
-      }
-    });
-
-    // No auto-start on load – only show ready state.
-    // ensure panels show "Awaiting trigger..."
-    // already set in HTML
-
-    // extra: clean intervals on page unload
-    window.addEventListener('beforeunload', function() {
-      stopAllIntervals();
-    });
-
-  })();
+    })();
 </script>
 
 </body>
