@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WHATSAPP HACK · 模拟控制台</title>
+  <title>WhatsApp HACK · Console</title>
   <style>
     * {
       margin: 0;
@@ -29,10 +29,8 @@
       border-radius: 18px;
       padding: 22px 20px 28px;
       box-shadow: 0 0 30px rgba(0, 255, 102, 0.15), inset 0 0 20px rgba(255, 0, 85, 0.1);
-      transition: 0.2s;
     }
 
-    /* glitch header */
     .glitch-title {
       font-size: 26px;
       font-weight: 700;
@@ -110,7 +108,6 @@
       box-shadow: 0 0 30px #00ff66;
     }
 
-    /* 4 panels grid */
     .panel-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -124,8 +121,6 @@
       border-radius: 16px;
       padding: 16px 12px 14px;
       box-shadow: inset 0 0 20px rgba(0, 255, 102, 0.02);
-      transition: 0.2s;
-      backdrop-filter: blur(1px);
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -213,28 +208,50 @@
       color: #ff0055;
     }
 
-    /* responsive */
-    @media (max-width: 560px) {
-      .panel-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
+    /* LOG area (terminal) */
+    .log-terminal {
+      margin-top: 20px;
+      background: #060b07;
+      border: 1px solid #1f3a1f;
+      border-radius: 14px;
+      padding: 12px 16px;
+      max-height: 100px;
+      overflow-y: auto;
+      font-size: 12px;
+      color: #9fcf9f;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-family: 'Courier New', monospace;
     }
 
-    /* small flicker */
-    .flicker-text {
-      animation: flicker 1.8s infinite;
+    .log-terminal .log-line {
+      border-bottom: 1px solid #152015;
+      padding-bottom: 3px;
     }
 
-    @keyframes flicker {
-      0% { opacity: 1; }
-      50% { opacity: 0.5; }
-      100% { opacity: 1; }
+    .log-terminal .log-line .highlight {
+      color: #00ff66;
+      font-weight: bold;
     }
 
-    /* terminal style footer */
+    .log-terminal .log-line .red {
+      color: #ff0055;
+    }
+
+    .log-terminal::-webkit-scrollbar {
+      width: 4px;
+    }
+    .log-terminal::-webkit-scrollbar-track {
+      background: #0a0f0a;
+    }
+    .log-terminal::-webkit-scrollbar-thumb {
+      background: #00ff66;
+      border-radius: 10px;
+    }
+
     .footer-stats {
-      margin-top: 18px;
+      margin-top: 16px;
       display: flex;
       justify-content: space-between;
       font-size: 11px;
@@ -253,6 +270,13 @@
       50% { opacity: 1; }
       100% { opacity: 0.3; }
     }
+
+    @media (max-width: 560px) {
+      .panel-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -262,64 +286,64 @@
   <div class="sub-glow">⧩  SYSTEM  •  DIAGNOSTIC  •  TARGET  ⧩</div>
 
   <div class="input-panel">
-    <input type="text" id="targetPhone" class="cyber-input" placeholder="+92 3XX 1234567" value="+92 300 1234567" />
+    <input type="text" id="targetPhone" class="cyber-input" placeholder="Enter phone number..." />
     <button class="cyber-btn" id="attackBtn">⟳  EXECUTE</button>
   </div>
 
   <!-- 4 PANELS -->
   <div class="panel-grid" id="panelContainer">
-    <!-- panel 1: SLOW / CRASH -->
     <div class="hack-panel" data-panel="0">
       <div class="panel-title"><span>🔻 SPEED ATTACK</span><span class="badge">SLOW</span></div>
-      <div class="status-line"><span class="icon">🐢</span> <span id="p0status">等待触发...</span></div>
+      <div class="status-line"><span class="icon">🐢</span> <span id="p0status">Awaiting trigger...</span></div>
       <div class="progress-container"><div class="progress-fill" id="p0progress"></div></div>
-      <div class="log-detail" id="p0detail">⏳ 就绪</div>
+      <div class="log-detail" id="p0detail">⏳ Ready</div>
       <div class="timestamp" id="p0time">--:--:--</div>
     </div>
 
-    <!-- panel 2: CRASH / DATA LOSS -->
     <div class="hack-panel" data-panel="1">
       <div class="panel-title"><span>💥 CRASH ENGINE</span><span class="badge">KILL</span></div>
-      <div class="status-line"><span class="icon">🧨</span> <span id="p1status">等待触发...</span></div>
+      <div class="status-line"><span class="icon">🧨</span> <span id="p1status">Awaiting trigger...</span></div>
       <div class="progress-container"><div class="progress-fill red" id="p1progress"></div></div>
-      <div class="log-detail" id="p1detail">⚡ 就绪</div>
+      <div class="log-detail" id="p1detail">⚡ Ready</div>
       <div class="timestamp" id="p1time">--:--:--</div>
     </div>
 
-    <!-- panel 3: DELETE / WIPE -->
     <div class="hack-panel" data-panel="2">
       <div class="panel-title"><span>🗑️ DATA WIPE</span><span class="badge">DELETE</span></div>
-      <div class="status-line"><span class="icon">⚠️</span> <span id="p2status">等待触发...</span></div>
+      <div class="status-line"><span class="icon">⚠️</span> <span id="p2status">Awaiting trigger...</span></div>
       <div class="progress-container"><div class="progress-fill yellow" id="p2progress"></div></div>
-      <div class="log-detail" id="p2detail">🧹 就绪</div>
+      <div class="log-detail" id="p2detail">🧹 Ready</div>
       <div class="timestamp" id="p2time">--:--:--</div>
     </div>
 
-    <!-- panel 4: RECOVERY / STATUS -->
     <div class="hack-panel" data-panel="3">
       <div class="panel-title"><span>📊 RECOVERY</span><span class="badge">STATUS</span></div>
-      <div class="status-line"><span class="icon">🔄</span> <span id="p3status">等待触发...</span></div>
+      <div class="status-line"><span class="icon">🔄</span> <span id="p3status">Awaiting trigger...</span></div>
       <div class="progress-container"><div class="progress-fill" id="p3progress"></div></div>
-      <div class="log-detail" id="p3detail">📡 就绪</div>
+      <div class="log-detail" id="p3detail">📡 Ready</div>
       <div class="timestamp" id="p3time">--:--:--</div>
     </div>
   </div>
 
-  <!-- footer -->
+  <!-- LOG TERMINAL -->
+  <div class="log-terminal" id="logTerminal">
+    <div class="log-line">[SYSTEM] Console ready. Enter target number and press EXECUTE.</div>
+  </div>
+
   <div class="footer-stats">
     <span class="live">● LIVE</span>
     <span id="globalTime">PKT 00:00:00</span>
-    <span>🔒 模拟 · v2.0</span>
+    <span>🔒 SIMULATION v2.0</span>
   </div>
 </div>
 
 <script>
   (function() {
-    // ----- DOM refs -----
+    // DOM refs
     const phoneInput = document.getElementById('targetPhone');
     const attackBtn = document.getElementById('attackBtn');
+    const logTerminal = document.getElementById('logTerminal');
 
-    // panels
     const panelStatus = [
       document.getElementById('p0status'),
       document.getElementById('p1status'),
@@ -344,37 +368,52 @@
       document.getElementById('p2time'),
       document.getElementById('p3time')
     ];
-
     const globalTimeEl = document.getElementById('globalTime');
 
-    // ------ helpers ------
+    // ---- helpers ----
     function getPakistanTime() {
       const now = new Date();
-      const pktOffset = 5 * 60 * 60 * 1000; // PKT UTC+5
+      const pktOffset = 5 * 60 * 60 * 1000;
       const localOffset = now.getTimezoneOffset() * 60 * 1000;
-      const pktTime = new Date(now.getTime() + localOffset + pktOffset);
-      return pktTime;
+      return new Date(now.getTime() + localOffset + pktOffset);
     }
 
     function formatTime(date) {
-      return date.toTimeString().split(' ')[0]; // HH:MM:SS
+      return date.toTimeString().split(' ')[0];
     }
 
     function updateClock() {
       const pkt = getPakistanTime();
-      globalTimeEl.textContent = `PKT ${formatTime(pkt)}`;
-      // update each panel timestamp (show current PKT)
-      const nowStr = formatTime(pkt);
+      const ts = formatTime(pkt);
+      globalTimeEl.textContent = `PKT ${ts}`;
       for (let i = 0; i < 4; i++) {
-        if (panelTime[i]) panelTime[i].textContent = nowStr;
+        if (panelTime[i]) panelTime[i].textContent = ts;
       }
     }
 
-    // update clock every second
     setInterval(updateClock, 1000);
     updateClock();
 
-    // ------ panel simulation ------
+    // ---- log function ----
+    function addLog(message, isHighlight = false, isRed = false) {
+      const div = document.createElement('div');
+      div.className = 'log-line';
+      if (isHighlight) {
+        div.innerHTML = `<span class="highlight">${message}</span>`;
+      } else if (isRed) {
+        div.innerHTML = `<span class="red">${message}</span>`;
+      } else {
+        div.textContent = message;
+      }
+      logTerminal.appendChild(div);
+      logTerminal.scrollTop = logTerminal.scrollHeight;
+      // keep last 15 lines
+      while (logTerminal.children.length > 15) {
+        logTerminal.removeChild(logTerminal.firstChild);
+      }
+    }
+
+    // ---- simulation state ----
     let running = false;
     let intervalIds = [];
 
@@ -386,186 +425,186 @@
     function resetPanels() {
       stopAllIntervals();
       for (let i = 0; i < 4; i++) {
-        panelStatus[i].textContent = '⏳ 就绪';
+        panelStatus[i].textContent = 'Awaiting trigger...';
         panelProgress[i].style.width = '0%';
-        panelDetail[i].innerHTML = '⚡ 等待触发...';
-        // keep time
+        panelDetail[i].innerHTML = '⏳ Ready';
       }
       running = false;
     }
 
-    // start hack simulation
+    // ---- start hack ----
     function startHack(target) {
       if (running) {
         resetPanels();
-        // small delay then restart
-        setTimeout(() => startHack(target), 150);
+        setTimeout(() => startHack(target), 200);
         return;
       }
 
-      // reset all panels first
+      if (!target || target.trim() === '') {
+        addLog('[ERROR] No target number provided.', false, true);
+        return;
+      }
+
+      // clear log and add target info
+      logTerminal.innerHTML = '';
+      addLog(`[TARGET] ${target}`, true);
+      addLog('[INIT] Starting attack sequence...');
+
+      // reset panels
       for (let i = 0; i < 4; i++) {
-        panelStatus[i].textContent = '⏳ 启动中...';
+        panelStatus[i].textContent = '⏳ Initializing...';
         panelProgress[i].style.width = '0%';
-        panelDetail[i].innerHTML = '⏳ 初始化...';
+        panelDetail[i].innerHTML = '⏳ Booting...';
       }
 
       running = true;
-      const phone = target || '+92 300 1234567';
+      const phone = target.trim();
 
-      // ---------- PANEL 0 : SLOW / CRASH (WhatsApp slowing) ----------
+      // ---- PANEL 0 : SLOW / CRASH ----
       let p0 = 0;
       const p0interval = setInterval(() => {
         if (!running) { clearInterval(p0interval); return; }
         p0 += 1 + Math.floor(Math.random() * 4);
         if (p0 > 100) p0 = 100;
         panelProgress[0].style.width = p0 + '%';
-        panelStatus[0].textContent = '🐢 减速中...';
+        panelStatus[0].textContent = '🐢 Slowing...';
         if (p0 < 40) {
-          panelDetail[0].innerHTML = `📉 WhatsApp 响应延迟 <span>${p0}ms</span>`;
+          panelDetail[0].innerHTML = `📉 WhatsApp latency <span>${p0}ms</span>`;
         } else if (p0 < 75) {
-          panelDetail[0].innerHTML = `⚠️ 严重延迟 · 丢包 <span>${p0}%</span>`;
+          panelDetail[0].innerHTML = `⚠️ High delay · packet loss <span>${p0}%</span>`;
         } else {
-          panelDetail[0].innerHTML = `💀 连接超时 · 接近崩溃 <span>${p0}%</span>`;
+          panelDetail[0].innerHTML = `💀 Timeout · near crash <span>${p0}%</span>`;
         }
         if (p0 >= 100) {
           panelStatus[0].textContent = '💀 CRASHED';
-          panelDetail[0].innerHTML = '❌ WhatsApp 已停止响应 · 强制关闭';
+          panelDetail[0].innerHTML = '❌ WhatsApp unresponsive · force closed';
           panelProgress[0].style.width = '100%';
           clearInterval(p0interval);
+          addLog('[PANEL 0] Speed attack: CRASHED', false, true);
         }
       }, 280);
 
-      // ---------- PANEL 1 : CRASH / DATA CORRUPT ----------
+      // ---- PANEL 1 : CRASH / DATA CORRUPT ----
       let p1 = 0;
       const p1interval = setInterval(() => {
         if (!running) { clearInterval(p1interval); return; }
         p1 += 2 + Math.floor(Math.random() * 5);
         if (p1 > 100) p1 = 100;
         panelProgress[1].style.width = p1 + '%';
-        panelStatus[1].textContent = '🧨 崩溃注入';
+        panelStatus[1].textContent = '🧨 Injecting crash';
         if (p1 < 50) {
-          panelDetail[1].innerHTML = `💢 数据库损坏 <span>${p1}%</span>`;
+          panelDetail[1].innerHTML = `💢 Database corruption <span>${p1}%</span>`;
         } else if (p1 < 85) {
-          panelDetail[1].innerHTML = `🔥 关键表丢失 · 强制终止 <span>${p1}%</span>`;
+          panelDetail[1].innerHTML = `🔥 Critical table lost <span>${p1}%</span>`;
         } else {
-          panelDetail[1].innerHTML = `☠️ 全部数据已损坏 · 不可恢复`;
+          panelDetail[1].innerHTML = `☠️ All data corrupted · unrecoverable`;
         }
         if (p1 >= 100) {
           panelStatus[1].textContent = '💥 KILLED';
-          panelDetail[1].innerHTML = '🧨 应用崩溃 · 进程已终止';
+          panelDetail[1].innerHTML = '🧨 App crash · process terminated';
           panelProgress[1].style.width = '100%';
           clearInterval(p1interval);
+          addLog('[PANEL 1] Crash engine: KILLED', false, true);
         }
       }, 350);
 
-      // ---------- PANEL 2 : DELETE / WIPE ----------
+      // ---- PANEL 2 : DELETE / WIPE ----
       let p2 = 0;
       const p2interval = setInterval(() => {
         if (!running) { clearInterval(p2interval); return; }
         p2 += 2 + Math.floor(Math.random() * 4);
         if (p2 > 100) p2 = 100;
         panelProgress[2].style.width = p2 + '%';
-        panelStatus[2].textContent = '🗑️ 擦除中';
+        panelStatus[2].textContent = '🗑️ Wiping';
         if (p2 < 45) {
-          panelDetail[2].innerHTML = `🧹 删除聊天记录 <span>${p2}%</span>`;
+          panelDetail[2].innerHTML = `🧹 Deleting chat history <span>${p2}%</span>`;
         } else if (p2 < 80) {
-          panelDetail[2].innerHTML = `⚠️ 媒体文件清除 <span>${p2}%</span>`;
+          panelDetail[2].innerHTML = `⚠️ Media files removed <span>${p2}%</span>`;
         } else {
-          panelDetail[2].innerHTML = `💾 所有数据已抹除 · 不可恢复`;
+          panelDetail[2].innerHTML = `💾 All data erased · irreversible`;
         }
         if (p2 >= 100) {
           panelStatus[2].textContent = '🗑️ DELETED';
-          panelDetail[2].innerHTML = '✅ 账号数据已完全清除';
+          panelDetail[2].innerHTML = '✅ Account data fully cleared';
           panelProgress[2].style.width = '100%';
           clearInterval(p2interval);
+          addLog('[PANEL 2] Data wipe: DELETED', false, true);
         }
       }, 400);
 
-      // ---------- PANEL 3 : RECOVERY / STATUS (fake recovery & speed) ----------
+      // ---- PANEL 3 : RECOVERY / STATUS ----
       let p3 = 0;
-      let phase = 0; // 0: slow, 1: recovery, 2: hacked
+      let phase = 0;
       const p3interval = setInterval(() => {
         if (!running) { clearInterval(p3interval); return; }
-
         if (phase === 0) {
           p3 += 1 + Math.floor(Math.random() * 3);
           if (p3 > 40) { phase = 1; p3 = 40; }
           panelProgress[3].style.width = p3 + '%';
-          panelStatus[3].textContent = '📉 性能下降';
-          panelDetail[3].innerHTML = `🐌 响应延迟 <span>${p3 * 2}ms</span> · 缓慢`;
+          panelStatus[3].textContent = '📉 Performance drop';
+          panelDetail[3].innerHTML = `🐌 Latency <span>${p3 * 2}ms</span> · slow`;
         } else if (phase === 1) {
           p3 += 2 + Math.floor(Math.random() * 4);
           if (p3 > 80) { phase = 2; p3 = 80; }
           panelProgress[3].style.width = p3 + '%';
-          panelStatus[3].textContent = '🔄 恢复中...';
-          panelDetail[3].innerHTML = `⚡ 修复尝试 <span>${p3}%</span> · 部分恢复`;
+          panelStatus[3].textContent = '🔄 Recovering...';
+          panelDetail[3].innerHTML = `⚡ Repair attempt <span>${p3}%</span> · partial`;
         } else if (phase === 2) {
           p3 += 1 + Math.floor(Math.random() * 2);
           if (p3 > 100) p3 = 100;
           panelProgress[3].style.width = p3 + '%';
           panelStatus[3].textContent = '☠️ HACKED';
-          panelDetail[3].innerHTML = `🔴 目标已被完全控制 · 状态: <span>COMPROMISED</span>`;
+          panelDetail[3].innerHTML = `🔴 Target fully controlled · <span>COMPROMISED</span>`;
           if (p3 >= 100) {
-            panelStatus[3].textContent = '💀 HACKED · 完成';
-            panelDetail[3].innerHTML = '✅ 系统接管成功 · 所有数据可访问';
+            panelStatus[3].textContent = '💀 HACKED · done';
+            panelDetail[3].innerHTML = '✅ System takeover complete · all data accessible';
             panelProgress[3].style.width = '100%';
             clearInterval(p3interval);
+            addLog('[PANEL 3] Recovery: HACKED · target compromised', false, true);
           }
         }
       }, 380);
 
-      // store intervals for cleanup
       intervalIds = [p0interval, p1interval, p2interval, p3interval];
 
-      // update timestamp on each panel with current PKT (ongoing)
-      const timeUpdater = setInterval(() => {
-        const pkt = getPakistanTime();
-        const ts = formatTime(pkt);
-        for (let i = 0; i < 4; i++) {
-          panelTime[i].textContent = ts;
-        }
-      }, 1000);
-      intervalIds.push(timeUpdater);
+      // log target in panels
+      addLog(`[ATTACK] Launching against ${phone}`, true);
+      addLog('[STATUS] All modules active.');
 
-      // stop all after 30 seconds (reset)
+      // auto-stop after 35s (but keep state)
       setTimeout(() => {
         if (running) {
-          // keep panels as they are but we allow manual reset by pressing again
-          // we don't auto reset to keep hacked state visible
+          addLog('[SYSTEM] Attack cycle completed. (idle)', false);
         }
       }, 35000);
     }
 
-    // ------ event binding ------
+    // ---- event binding ----
     attackBtn.addEventListener('click', function() {
-      const phone = phoneInput.value.trim() || '+92 300 1234567';
-      // if already running, stop and restart
+      const phone = phoneInput.value.trim();
+      if (!phone) {
+        addLog('[ERROR] Please enter a phone number.', false, true);
+        return;
+      }
       if (running) {
         resetPanels();
-        // start fresh after small delay
         setTimeout(() => startHack(phone), 200);
       } else {
         startHack(phone);
       }
     });
 
-    // Enter key on input
     phoneInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         attackBtn.click();
       }
     });
 
-    // initial auto-start with demo number (so it looks alive)
-    window.addEventListener('load', function() {
-      // start with default phone after 800ms
-      setTimeout(() => {
-        startHack('+92 300 1234567');
-      }, 500);
-    });
+    // No auto-start on load – only show ready state.
+    // ensure panels show "Awaiting trigger..."
+    // already set in HTML
 
-    // clean intervals on page unload (optional)
+    // extra: clean intervals on page unload
     window.addEventListener('beforeunload', function() {
       stopAllIntervals();
     });
