@@ -1,590 +1,577 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>⚠️ HACK TERMINAL · LIVE OS TRACK</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WHATSAPP HACK · 模拟控制台</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
-      background: #0b0e0f;
-      color: #00ff88;
-      font-family: 'Share Tech Mono', 'Courier New', monospace;
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
-      position: relative;
-      user-select: none;
-    }
-    /* scan grid overlay */
-    .grid-overlay {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      background-image: 
-        linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      animation: gridPulse 4s linear infinite;
-    }
-    @keyframes gridPulse {
-      0% { opacity: 0.3; }
-      50% { opacity: 0.9; }
-      100% { opacity: 0.3; }
-    }
-    /* digital rain canvas (background) */
-    #rainCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      opacity: 0.25;
-      pointer-events: none;
-    }
-    /* main dashboard */
-    .dashboard {
-      position: relative;
-      z-index: 10;
-      display: grid;
-      grid-template-columns: 1.2fr 0.9fr 1fr;
-      grid-template-rows: auto auto 1fr;
-      gap: 10px;
-      padding: 12px;
-      height: 100vh;
-      width: 100vw;
-      background: transparent;
-      backdrop-filter: blur(1px);
-    }
-    /* universal panel style */
-    .panel {
-      background: rgba(8, 20, 20, 0.65);
-      border: 1px solid rgba(0, 255, 136, 0.25);
-      box-shadow: 0 0 15px rgba(0, 255, 136, 0.08), inset 0 0 25px rgba(0, 255, 136, 0.02);
-      border-radius: 6px;
-      padding: 10px 12px;
-      backdrop-filter: blur(2px);
-      transition: border 0.2s;
-      overflow: hidden;
-    }
-    .panel-title {
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #00cc77;
-      border-bottom: 1px solid rgba(0, 255, 136, 0.2);
-      padding-bottom: 5px;
-      margin-bottom: 8px;
+      background: #0b0e0a;
+      min-height: 100vh;
+      padding: 20px;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Courier New', Courier, monospace;
     }
-    .panel-title span:last-child {
-      color: #ff5555;
+
+    .hack-dashboard {
+      max-width: 780px;
+      width: 100%;
+      background: #0f130f;
+      border: 2px solid #00ff66;
+      border-radius: 18px;
+      padding: 22px 20px 28px;
+      box-shadow: 0 0 30px rgba(0, 255, 102, 0.15), inset 0 0 20px rgba(255, 0, 85, 0.1);
+      transition: 0.2s;
+    }
+
+    /* glitch header */
+    .glitch-title {
+      font-size: 26px;
       font-weight: 700;
+      color: #ff0055;
+      text-align: center;
+      text-shadow: 0 0 12px #ff0055, 0 0 30px #ff0055;
+      letter-spacing: 3px;
+      animation: scratch-vibe 0.25s infinite alternate;
+      word-break: break-word;
     }
-    /* terminal console */
-    .terminal-console {
-      grid-column: 1 / 2;
-      grid-row: 1 / 3;
-      background: rgba(0, 10, 8, 0.8);
-      border-color: #00cc77;
+
+    .sub-glow {
+      color: #00ff66;
+      text-align: center;
+      font-size: 13px;
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+      text-shadow: 0 0 8px #00ff66;
+      opacity: 0.8;
     }
-    #logOutput {
-      height: calc(100% - 30px);
-      overflow: hidden;
-      font-size: 0.7rem;
-      line-height: 1.45;
-      color: #99ffbb;
-      text-shadow: 0 0 4px #00ff8844;
-      white-space: pre-wrap;
-      word-break: break-all;
-      font-family: 'Courier New', monospace;
-      scrollbar-width: none;
+
+    @keyframes scratch-vibe {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(2px, -1px); }
+      100% { transform: translate(-1px, 2px); }
     }
-    #logOutput::-webkit-scrollbar { display: none; }
-    /* profile dossier */
-    .dossier {
-      grid-column: 2 / 3;
-      grid-row: 1 / 2;
-      border-color: #33aaff;
-    }
-    .dossier-item {
+
+    .input-panel {
       display: flex;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      padding: 4px 0;
-      border-bottom: 1px dotted rgba(0, 180, 255, 0.15);
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
     }
-    .dossier-item .label { color: #66ccff; }
-    .dossier-item .value { color: #b3f0ff; font-weight: 600; letter-spacing: 0.5px; }
-    .blink-target {
-      animation: blinkRed 1.2s infinite;
-      font-weight: bold;
+
+    .cyber-input {
+      flex: 2;
+      min-width: 180px;
+      padding: 14px 16px;
+      background: #060b07;
+      border: 1.5px solid #00ff66;
+      color: #00ff66;
+      font-size: 15px;
+      border-radius: 40px;
+      outline: none;
+      box-shadow: inset 0 0 12px rgba(0, 255, 102, 0.2);
+      font-family: inherit;
     }
-    @keyframes blinkRed {
-      0% { color: #ff3333; text-shadow: 0 0 8px #ff0000aa; }
-      50% { color: #ff8866; text-shadow: 0 0 20px #ff4400; }
-      100% { color: #ff3333; text-shadow: 0 0 8px #ff0000aa; }
+
+    .cyber-input:focus {
+      border-color: #ff0055;
+      box-shadow: 0 0 20px rgba(255, 0, 85, 0.4), inset 0 0 12px #ff0055;
     }
-    /* live map */
-    .map-panel {
-      grid-column: 2 / 3;
-      grid-row: 2 / 3;
-      padding: 6px;
-      border-color: #44ddff;
-      position: relative;
+
+    .cyber-btn {
+      flex: 1;
+      min-width: 130px;
+      padding: 14px 18px;
+      background: #ff0055;
+      border: none;
+      color: #fff;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 1px;
+      border-radius: 40px;
+      box-shadow: 0 0 20px rgba(255, 0, 85, 0.6);
+      cursor: pointer;
+      transition: 0.15s;
+      font-family: inherit;
+      text-transform: uppercase;
     }
-    #mapCanvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-      background: #041012;
-      border-radius: 4px;
-      box-shadow: 0 0 30px rgba(0, 200, 255, 0.05);
+
+    .cyber-btn:hover {
+      background: #00ff66;
+      color: #000;
+      box-shadow: 0 0 30px #00ff66;
     }
-    /* graphs row */
-    .graphs {
-      grid-column: 3 / 4;
-      grid-row: 1 / 3;
+
+    /* 4 panels grid */
+    .panel-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .hack-panel {
+      background: #0a0f0a;
+      border: 1px solid #1f3a1f;
+      border-radius: 16px;
+      padding: 16px 12px 14px;
+      box-shadow: inset 0 0 20px rgba(0, 255, 102, 0.02);
+      transition: 0.2s;
+      backdrop-filter: blur(1px);
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      border-color: #ffaa33;
+      gap: 6px;
     }
-    .graph-box {
-      flex: 1;
-      background: rgba(0, 10, 10, 0.5);
-      border-radius: 4px;
-      padding: 4px;
-      border-bottom: 1px solid rgba(255, 170, 51, 0.15);
-    }
-    .graph-box canvas {
-      width: 100%;
-      height: calc(100% - 18px);
-      display: block;
-      background: transparent;
-    }
-    .graph-label {
-      font-size: 0.6rem;
-      color: #ffbb55;
-      letter-spacing: 1px;
-    }
-    /* bottom status bar */
-    .status-bar {
-      grid-column: 1 / 4;
-      grid-row: 3 / 4;
+
+    .panel-title {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      font-size: 0.6rem;
-      border-color: #33dd88;
-      padding: 6px 16px;
-      background: rgba(0, 16, 12, 0.7);
-      color: #77ffbb;
-      border-top: 1px solid #00ff8844;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #6f9f6f;
       letter-spacing: 1px;
+      border-bottom: 1px dashed #1f3a1f;
+      padding-bottom: 5px;
     }
-    .status-bar .blink {
-      animation: blinkStatus 1.8s infinite;
+
+    .panel-title .badge {
+      background: #1f2a1f;
+      padding: 0 10px;
+      border-radius: 30px;
+      color: #00ff66;
+      font-size: 10px;
+      border: 1px solid #00ff66;
     }
-    @keyframes blinkStatus {
+
+    .status-line {
+      font-size: 13px;
+      color: #b0ffb0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      min-height: 24px;
+    }
+
+    .status-line .icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 6px;
+      background: #1a2a1a;
+      border-radius: 20px;
+      margin: 4px 0 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #00ff66;
+      border-radius: 20px;
+      box-shadow: 0 0 12px #00ff66;
+      transition: width 0.2s ease;
+    }
+
+    .progress-fill.red {
+      background: #ff0055;
+      box-shadow: 0 0 12px #ff0055;
+    }
+
+    .progress-fill.yellow {
+      background: #ffcc00;
+      box-shadow: 0 0 12px #ffcc00;
+    }
+
+    .timestamp {
+      font-size: 10px;
+      color: #4f7f4f;
+      text-align: right;
+      margin-top: 2px;
+      letter-spacing: 0.5px;
+    }
+
+    .log-detail {
+      font-size: 11px;
+      color: #8fbf8f;
+      word-break: break-word;
+      line-height: 1.4;
+    }
+
+    .log-detail span {
+      color: #ff0055;
+    }
+
+    /* responsive */
+    @media (max-width: 560px) {
+      .panel-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    /* small flicker */
+    .flicker-text {
+      animation: flicker 1.8s infinite;
+    }
+
+    @keyframes flicker {
       0% { opacity: 1; }
-      50% { opacity: 0.2; }
+      50% { opacity: 0.5; }
       100% { opacity: 1; }
     }
-    .status-bar .warn {
-      color: #ff8844;
+
+    /* terminal style footer */
+    .footer-stats {
+      margin-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #2f5f2f;
+      border-top: 1px solid #1a2a1a;
+      padding-top: 12px;
     }
-    /* responsive */
-    @media (max-width: 900px) {
-      .dashboard {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto auto 1fr;
-      }
-      .terminal-console { grid-column: 1 / 3; grid-row: 1 / 2; height: 200px; }
-      .dossier { grid-column: 1 / 2; grid-row: 2 / 3; }
-      .map-panel { grid-column: 2 / 3; grid-row: 2 / 3; }
-      .graphs { grid-column: 1 / 3; grid-row: 3 / 4; flex-direction: row; flex-wrap: wrap; }
-      .graphs .graph-box { min-width: 120px; flex: 1; }
-      .status-bar { grid-column: 1 / 3; grid-row: 4 / 5; }
+
+    .footer-stats .live {
+      color: #00ff66;
+      animation: pulse-dot 1.2s infinite;
     }
-    @media (max-width: 540px) {
-      .dashboard { gap: 6px; padding: 6px; }
-      .panel { padding: 6px; }
+
+    @keyframes pulse-dot {
+      0% { opacity: 0.3; }
+      50% { opacity: 1; }
+      100% { opacity: 0.3; }
     }
-    /* scrollbar hide */
-    ::-webkit-scrollbar { display: none; }
   </style>
 </head>
 <body>
 
-  <!-- background digital rain -->
-  <canvas id="rainCanvas"></canvas>
-  <div class="grid-overlay"></div>
+<div class="hack-dashboard" id="app">
+  <div class="glitch-title">📱 WHATSAPP HACK</div>
+  <div class="sub-glow">⧩  SYSTEM  •  DIAGNOSTIC  •  TARGET  ⧩</div>
 
-  <!-- DASHBOARD -->
-  <div class="dashboard">
+  <div class="input-panel">
+    <input type="text" id="targetPhone" class="cyber-input" placeholder="+92 3XX 1234567" value="+92 300 1234567" />
+    <button class="cyber-btn" id="attackBtn">⟳  EXECUTE</button>
+  </div>
 
-    <!-- TERMINAL CONSOLE -->
-    <div class="panel terminal-console">
-      <div class="panel-title">
-        <span>⏣ ROOT SHELL · LIVE</span>
-        <span id="clockDisplay">⏱ 00:00:00</span>
-      </div>
-      <div id="logOutput"></div>
+  <!-- 4 PANELS -->
+  <div class="panel-grid" id="panelContainer">
+    <!-- panel 1: SLOW / CRASH -->
+    <div class="hack-panel" data-panel="0">
+      <div class="panel-title"><span>🔻 SPEED ATTACK</span><span class="badge">SLOW</span></div>
+      <div class="status-line"><span class="icon">🐢</span> <span id="p0status">等待触发...</span></div>
+      <div class="progress-container"><div class="progress-fill" id="p0progress"></div></div>
+      <div class="log-detail" id="p0detail">⏳ 就绪</div>
+      <div class="timestamp" id="p0time">--:--:--</div>
     </div>
 
-    <!-- DOSSIER -->
-    <div class="panel dossier">
-      <div class="panel-title"><span>📡 SUBJECT PROFILE</span><span>🔒 SECURE</span></div>
-      <div class="dossier-item"><span class="label">NAME</span><span class="value">RIZWAN</span></div>
-      <div class="dossier-item"><span class="label">FATHER</span><span class="value">IQBAL</span></div>
-      <div class="dossier-item"><span class="label">LOCATION</span><span class="value">GHAUSPUR</span></div>
-      <div class="dossier-item"><span class="label">ROUTER / COORD</span><span class="value blink-target">SHIKARPUR RD, KANDHKOT</span></div>
-      <div style="margin-top:6px;font-size:0.6rem;color:#44ddff;border-top:1px solid #44ddff33;padding-top:5px;">
-        <span>🔴 TARGET LOCKED · SAT ACTIVE</span>
-      </div>
+    <!-- panel 2: CRASH / DATA LOSS -->
+    <div class="hack-panel" data-panel="1">
+      <div class="panel-title"><span>💥 CRASH ENGINE</span><span class="badge">KILL</span></div>
+      <div class="status-line"><span class="icon">🧨</span> <span id="p1status">等待触发...</span></div>
+      <div class="progress-container"><div class="progress-fill red" id="p1progress"></div></div>
+      <div class="log-detail" id="p1detail">⚡ 就绪</div>
+      <div class="timestamp" id="p1time">--:--:--</div>
     </div>
 
-    <!-- LIVE MAP -->
-    <div class="panel map-panel">
-      <div class="panel-title"><span>🛰 SATELLITE RADAR</span><span id="mapCoords">KANDHKOT</span></div>
-      <canvas id="mapCanvas"></canvas>
+    <!-- panel 3: DELETE / WIPE -->
+    <div class="hack-panel" data-panel="2">
+      <div class="panel-title"><span>🗑️ DATA WIPE</span><span class="badge">DELETE</span></div>
+      <div class="status-line"><span class="icon">⚠️</span> <span id="p2status">等待触发...</span></div>
+      <div class="progress-container"><div class="progress-fill yellow" id="p2progress"></div></div>
+      <div class="log-detail" id="p2detail">🧹 就绪</div>
+      <div class="timestamp" id="p2time">--:--:--</div>
     </div>
 
-    <!-- GRAPHS -->
-    <div class="panel graphs">
-      <div class="graph-box"><div class="graph-label">⬆ NETWORK BANDWIDTH</div><canvas id="netCanvas"></canvas></div>
-      <div class="graph-box"><div class="graph-label">⚡ CPU LOAD</div><canvas id="cpuCanvas"></canvas></div>
-      <div class="graph-box"><div class="graph-label">〰 WAVEFORM</div><canvas id="waveCanvas"></canvas></div>
-    </div>
-
-    <!-- STATUS BAR -->
-    <div class="panel status-bar">
-      <span>⚡ SYS: <span class="blink">● ONLINE</span> · 60 FPS</span>
-      <span>🔗 ENCRYPTION: AES-256</span>
-      <span class="warn">⏳ TRACKING TARGET · SHIKARPUR RD</span>
-      <span>🛰 SAT-LINK: <span class="blink">ESTABLISHED</span></span>
+    <!-- panel 4: RECOVERY / STATUS -->
+    <div class="hack-panel" data-panel="3">
+      <div class="panel-title"><span>📊 RECOVERY</span><span class="badge">STATUS</span></div>
+      <div class="status-line"><span class="icon">🔄</span> <span id="p3status">等待触发...</span></div>
+      <div class="progress-container"><div class="progress-fill" id="p3progress"></div></div>
+      <div class="log-detail" id="p3detail">📡 就绪</div>
+      <div class="timestamp" id="p3time">--:--:--</div>
     </div>
   </div>
 
-  <script>
-    (function() {
-      "use strict";
+  <!-- footer -->
+  <div class="footer-stats">
+    <span class="live">● LIVE</span>
+    <span id="globalTime">PKT 00:00:00</span>
+    <span>🔒 模拟 · v2.0</span>
+  </div>
+</div>
 
-      // =============== DIGITAL RAIN (background) ===============
-      const rainCanvas = document.getElementById('rainCanvas');
-      const rctx = rainCanvas.getContext('2d');
-      let rainW, rainH;
-      const resizeRain = () => {
-        rainW = window.innerWidth;
-        rainH = window.innerHeight;
-        rainCanvas.width = rainW;
-        rainCanvas.height = rainH;
-      };
-      window.addEventListener('resize', resizeRain);
-      resizeRain();
+<script>
+  (function() {
+    // ----- DOM refs -----
+    const phoneInput = document.getElementById('targetPhone');
+    const attackBtn = document.getElementById('attackBtn');
 
-      const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%^&*()";
-      const fontSize = 14;
-      let columns = Math.floor(rainW / fontSize);
-      let drops = [];
-      const initDrops = () => {
-        columns = Math.floor(rainW / fontSize);
-        drops = Array(columns).fill(1).map(() => Math.floor(Math.random() * -100));
-      };
-      initDrops();
-      window.addEventListener('resize', () => {
-        resizeRain();
-        initDrops();
-      });
+    // panels
+    const panelStatus = [
+      document.getElementById('p0status'),
+      document.getElementById('p1status'),
+      document.getElementById('p2status'),
+      document.getElementById('p3status')
+    ];
+    const panelProgress = [
+      document.getElementById('p0progress'),
+      document.getElementById('p1progress'),
+      document.getElementById('p2progress'),
+      document.getElementById('p3progress')
+    ];
+    const panelDetail = [
+      document.getElementById('p0detail'),
+      document.getElementById('p1detail'),
+      document.getElementById('p2detail'),
+      document.getElementById('p3detail')
+    ];
+    const panelTime = [
+      document.getElementById('p0time'),
+      document.getElementById('p1time'),
+      document.getElementById('p2time'),
+      document.getElementById('p3time')
+    ];
 
-      function drawRain() {
-        rctx.fillStyle = 'rgba(0, 10, 8, 0.12)';
-        rctx.fillRect(0, 0, rainW, rainH);
-        rctx.fillStyle = '#00ff88';
-        rctx.font = fontSize + 'px monospace';
-        for (let i = 0; i < drops.length; i++) {
-          const char = chars[Math.floor(Math.random() * chars.length)];
-          const x = i * fontSize;
-          const y = drops[i] * fontSize;
-          rctx.fillStyle = (Math.random() > 0.975) ? '#aaffdd' : '#00cc77';
-          rctx.shadowBlur = 12;
-          rctx.shadowColor = '#00ff8844';
-          rctx.fillText(char, x, y);
-          if (y > rainH && Math.random() > 0.98) drops[i] = 0;
-          drops[i] += 1.6;
-        }
-        requestAnimationFrame(drawRain);
+    const globalTimeEl = document.getElementById('globalTime');
+
+    // ------ helpers ------
+    function getPakistanTime() {
+      const now = new Date();
+      const pktOffset = 5 * 60 * 60 * 1000; // PKT UTC+5
+      const localOffset = now.getTimezoneOffset() * 60 * 1000;
+      const pktTime = new Date(now.getTime() + localOffset + pktOffset);
+      return pktTime;
+    }
+
+    function formatTime(date) {
+      return date.toTimeString().split(' ')[0]; // HH:MM:SS
+    }
+
+    function updateClock() {
+      const pkt = getPakistanTime();
+      globalTimeEl.textContent = `PKT ${formatTime(pkt)}`;
+      // update each panel timestamp (show current PKT)
+      const nowStr = formatTime(pkt);
+      for (let i = 0; i < 4; i++) {
+        if (panelTime[i]) panelTime[i].textContent = nowStr;
       }
-      drawRain();
+    }
 
-      // =============== TERMINAL LOG ===============
-      const logEl = document.getElementById('logOutput');
-      const terminalMessages = [
-        "⟳ INITIALIZING KERNEL HOOK... DONE",
-        "⛓ BYPASSING FIREWALL (tcp/443)... OK",
-        "🔓 DECRYPTING NODE 0x7F3A... SUCCESS",
-        "⚡ OVERRIDING SECURITY PROTOCOLS...",
-        "🛰 ESTABLISHING SECURE SAT-LINK...",
-        "📍 LOCKING TARGET COORDINATES...",
-        "🧬 INJECTING PAYLOAD... STABLE",
-        "⏳ SYNC WITH GROUND STATION...",
-        "✅ TARGET ROUTER: SHIKARPUR RD",
-        "⚠️ WARNING: INTRUSION DETECTED (SPOOF)",
-        "🔄 REROUTING VIA TOR... DONE",
-        "📡 SATELLITE ARRAY ACTIVE",
-        "🔴 LIVE TRACKING: KANDHKOT",
-        "⏱ LATENCY: 12ms",
-        "📊 BANDWIDTH: 98%",
-        "🧩 DECRYPTING NODE 0x8B4F...",
-        "🚀 OVERRIDE ACCEPTED",
-        "🔗 SECURE CHANNEL ESTABLISHED",
-        "💾 LOGGING SESSION DATA...",
-        "🛡 FIREWALL BYPASSED",
-        "⚡ TARGET LOCK: RIZWAN / IQBAL"
-      ];
-      let msgIndex = 0;
+    // update clock every second
+    setInterval(updateClock, 1000);
+    updateClock();
 
-      function updateClock() {
-        const now = new Date();
-        const t = now.toTimeString().split(' ')[0];
-        document.getElementById('clockDisplay').innerText = '⏱ ' + t;
+    // ------ panel simulation ------
+    let running = false;
+    let intervalIds = [];
+
+    function stopAllIntervals() {
+      intervalIds.forEach(id => clearInterval(id));
+      intervalIds = [];
+    }
+
+    function resetPanels() {
+      stopAllIntervals();
+      for (let i = 0; i < 4; i++) {
+        panelStatus[i].textContent = '⏳ 就绪';
+        panelProgress[i].style.width = '0%';
+        panelDetail[i].innerHTML = '⚡ 等待触发...';
+        // keep time
       }
-      setInterval(updateClock, 1000);
-      updateClock();
+      running = false;
+    }
 
-      function appendLog() {
-        const msg = terminalMessages[msgIndex % terminalMessages.length];
-        const prefix = (Math.random() > 0.7) ? '> ' : '>> ';
-        const line = prefix + msg + '   [' + new Date().toLocaleTimeString() + ']\n';
-        logEl.textContent += line;
-        if (logEl.textContent.split('\n').length > 45) {
-          const lines = logEl.textContent.split('\n');
-          lines.splice(0, 12);
-          logEl.textContent = lines.join('\n');
-        }
-        logEl.scrollTop = logEl.scrollHeight;
-        msgIndex++;
+    // start hack simulation
+    function startHack(target) {
+      if (running) {
+        resetPanels();
+        // small delay then restart
+        setTimeout(() => startHack(target), 150);
+        return;
       }
-      // fast terminal
-      setInterval(appendLog, 380);
-      for (let i = 0; i < 6; i++) appendLog();
 
-      // =============== MAP CANVAS (radar) ===============
-      const mapCanvas = document.getElementById('mapCanvas');
-      const mctx = mapCanvas.getContext('2d');
-      let mapW, mapH;
-
-      function resizeMap() {
-        const rect = mapCanvas.parentElement.getBoundingClientRect();
-        const w = rect.width - 12;
-        const h = rect.height - 28;
-        mapCanvas.width = w * window.devicePixelRatio;
-        mapCanvas.height = h * window.devicePixelRatio;
-        mapCanvas.style.width = w + 'px';
-        mapCanvas.style.height = h + 'px';
-        mapW = w;
-        mapH = h;
-        mctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      // reset all panels first
+      for (let i = 0; i < 4; i++) {
+        panelStatus[i].textContent = '⏳ 启动中...';
+        panelProgress[i].style.width = '0%';
+        panelDetail[i].innerHTML = '⏳ 初始化...';
       }
-      window.addEventListener('resize', resizeMap);
-      setTimeout(resizeMap, 20);
 
-      let mapAngle = 0;
-      function drawMap() {
-        if (!mapW || !mapH) { requestAnimationFrame(drawMap); return; }
-        const cx = mapW/2, cy = mapH/2, radius = Math.min(mapW, mapH) * 0.4;
+      running = true;
+      const phone = target || '+92 300 1234567';
 
-        mctx.clearRect(0, 0, mapW, mapH);
-        // background
-        mctx.fillStyle = '#041012';
-        mctx.fillRect(0, 0, mapW, mapH);
-
-        // grid rings
-        mctx.strokeStyle = '#00cc8844';
-        mctx.lineWidth = 0.8;
-        for (let r = 0.3; r <= 1.0; r += 0.25) {
-          mctx.beginPath();
-          mctx.arc(cx, cy, radius * r, 0, Math.PI*2);
-          mctx.stroke();
+      // ---------- PANEL 0 : SLOW / CRASH (WhatsApp slowing) ----------
+      let p0 = 0;
+      const p0interval = setInterval(() => {
+        if (!running) { clearInterval(p0interval); return; }
+        p0 += 1 + Math.floor(Math.random() * 4);
+        if (p0 > 100) p0 = 100;
+        panelProgress[0].style.width = p0 + '%';
+        panelStatus[0].textContent = '🐢 减速中...';
+        if (p0 < 40) {
+          panelDetail[0].innerHTML = `📉 WhatsApp 响应延迟 <span>${p0}ms</span>`;
+        } else if (p0 < 75) {
+          panelDetail[0].innerHTML = `⚠️ 严重延迟 · 丢包 <span>${p0}%</span>`;
+        } else {
+          panelDetail[0].innerHTML = `💀 连接超时 · 接近崩溃 <span>${p0}%</span>`;
         }
-        // crosshair
-        mctx.strokeStyle = '#00cc8833';
-        mctx.lineWidth = 0.6;
-        mctx.beginPath();
-        mctx.moveTo(cx - radius*1.1, cy);
-        mctx.lineTo(cx + radius*1.1, cy);
-        mctx.moveTo(cx, cy - radius*1.1);
-        mctx.lineTo(cx, cy + radius*1.1);
-        mctx.stroke();
-
-        // rotating radar line
-        mapAngle += 0.025;
-        mctx.strokeStyle = '#33ddff';
-        mctx.lineWidth = 1.5;
-        mctx.shadowBlur = 18;
-        mctx.shadowColor = '#00ccff88';
-        mctx.beginPath();
-        mctx.moveTo(cx, cy);
-        const endX = cx + radius * 0.95 * Math.cos(mapAngle);
-        const endY = cy + radius * 0.95 * Math.sin(mapAngle);
-        mctx.lineTo(endX, endY);
-        mctx.stroke();
-        mctx.shadowBlur = 0;
-
-        // target blip (Shikarpur Rd, Kandhkot)
-        const targetAngle = mapAngle * 2.3 + 1.2;
-        const targetDist = radius * 0.6 + 10 * Math.sin(mapAngle * 1.7);
-        const tx = cx + targetDist * Math.cos(targetAngle);
-        const ty = cy + targetDist * Math.sin(targetAngle);
-
-        // pulse ring
-        const pulse = 0.5 + 0.5 * Math.sin(mapAngle * 3);
-        mctx.beginPath();
-        mctx.arc(tx, ty, 6 + 8 * pulse, 0, Math.PI*2);
-        mctx.fillStyle = 'rgba(255, 60, 60, 0.2)';
-        mctx.fill();
-        mctx.strokeStyle = '#ff3333';
-        mctx.lineWidth = 1.8;
-        mctx.stroke();
-
-        mctx.beginPath();
-        mctx.arc(tx, ty, 4, 0, Math.PI*2);
-        mctx.fillStyle = '#ff2222';
-        mctx.shadowBlur = 28;
-        mctx.shadowColor = '#ff0000aa';
-        mctx.fill();
-        mctx.shadowBlur = 0;
-
-        // small coordinate label
-        mctx.fillStyle = '#66ddff';
-        mctx.font = '7px monospace';
-        mctx.fillText('⏺ TARGET', tx-24, ty-14);
-
-        // rotating dots
-        for (let i=0; i<6; i++) {
-          const a = mapAngle * 0.7 + i * 1.0;
-          const dx = cx + (radius * 0.8) * Math.cos(a);
-          const dy = cy + (radius * 0.8) * Math.sin(a);
-          mctx.beginPath();
-          mctx.arc(dx, dy, 1.5, 0, Math.PI*2);
-          mctx.fillStyle = '#44ddff88';
-          mctx.fill();
+        if (p0 >= 100) {
+          panelStatus[0].textContent = '💀 CRASHED';
+          panelDetail[0].innerHTML = '❌ WhatsApp 已停止响应 · 强制关闭';
+          panelProgress[0].style.width = '100%';
+          clearInterval(p0interval);
         }
+      }, 280);
 
-        requestAnimationFrame(drawMap);
-      }
-      drawMap();
-
-      // =============== GRAPHS ===============
-      function initGraph(canvasId, color, label) {
-        const canvas = document.getElementById(canvasId);
-        const ctx = canvas.getContext('2d');
-        let w, h;
-        const data = [];
-        const maxPoints = 50;
-
-        function resize() {
-          const rect = canvas.parentElement.getBoundingClientRect();
-          const w_ = rect.width - 8;
-          const h_ = rect.height - 18;
-          canvas.width = w_ * window.devicePixelRatio;
-          canvas.height = h_ * window.devicePixelRatio;
-          canvas.style.width = w_ + 'px';
-          canvas.style.height = h_ + 'px';
-          w = w_;
-          h = h_;
-          ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      // ---------- PANEL 1 : CRASH / DATA CORRUPT ----------
+      let p1 = 0;
+      const p1interval = setInterval(() => {
+        if (!running) { clearInterval(p1interval); return; }
+        p1 += 2 + Math.floor(Math.random() * 5);
+        if (p1 > 100) p1 = 100;
+        panelProgress[1].style.width = p1 + '%';
+        panelStatus[1].textContent = '🧨 崩溃注入';
+        if (p1 < 50) {
+          panelDetail[1].innerHTML = `💢 数据库损坏 <span>${p1}%</span>`;
+        } else if (p1 < 85) {
+          panelDetail[1].innerHTML = `🔥 关键表丢失 · 强制终止 <span>${p1}%</span>`;
+        } else {
+          panelDetail[1].innerHTML = `☠️ 全部数据已损坏 · 不可恢复`;
         }
-        window.addEventListener('resize', resize);
-        setTimeout(resize, 20);
+        if (p1 >= 100) {
+          panelStatus[1].textContent = '💥 KILLED';
+          panelDetail[1].innerHTML = '🧨 应用崩溃 · 进程已终止';
+          panelProgress[1].style.width = '100%';
+          clearInterval(p1interval);
+        }
+      }, 350);
 
-        function draw() {
-          if (!w || !h) { requestAnimationFrame(draw); return; }
-          ctx.clearRect(0, 0, w, h);
+      // ---------- PANEL 2 : DELETE / WIPE ----------
+      let p2 = 0;
+      const p2interval = setInterval(() => {
+        if (!running) { clearInterval(p2interval); return; }
+        p2 += 2 + Math.floor(Math.random() * 4);
+        if (p2 > 100) p2 = 100;
+        panelProgress[2].style.width = p2 + '%';
+        panelStatus[2].textContent = '🗑️ 擦除中';
+        if (p2 < 45) {
+          panelDetail[2].innerHTML = `🧹 删除聊天记录 <span>${p2}%</span>`;
+        } else if (p2 < 80) {
+          panelDetail[2].innerHTML = `⚠️ 媒体文件清除 <span>${p2}%</span>`;
+        } else {
+          panelDetail[2].innerHTML = `💾 所有数据已抹除 · 不可恢复`;
+        }
+        if (p2 >= 100) {
+          panelStatus[2].textContent = '🗑️ DELETED';
+          panelDetail[2].innerHTML = '✅ 账号数据已完全清除';
+          panelProgress[2].style.width = '100%';
+          clearInterval(p2interval);
+        }
+      }, 400);
 
-          // new random value (highly dynamic)
-          const val = Math.random() * 0.9 + 0.1;
-          data.push(val);
-          if (data.length > maxPoints) data.shift();
+      // ---------- PANEL 3 : RECOVERY / STATUS (fake recovery & speed) ----------
+      let p3 = 0;
+      let phase = 0; // 0: slow, 1: recovery, 2: hacked
+      const p3interval = setInterval(() => {
+        if (!running) { clearInterval(p3interval); return; }
 
-          // draw line
-          ctx.strokeStyle = color;
-          ctx.lineWidth = 2;
-          ctx.shadowBlur = 12;
-          ctx.shadowColor = color + '66';
-          ctx.beginPath();
-          for (let i=0; i<data.length; i++) {
-            const x = (i / maxPoints) * w;
-            const y = h - data[i] * h * 0.9 - 2;
-            if (i===0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
+        if (phase === 0) {
+          p3 += 1 + Math.floor(Math.random() * 3);
+          if (p3 > 40) { phase = 1; p3 = 40; }
+          panelProgress[3].style.width = p3 + '%';
+          panelStatus[3].textContent = '📉 性能下降';
+          panelDetail[3].innerHTML = `🐌 响应延迟 <span>${p3 * 2}ms</span> · 缓慢`;
+        } else if (phase === 1) {
+          p3 += 2 + Math.floor(Math.random() * 4);
+          if (p3 > 80) { phase = 2; p3 = 80; }
+          panelProgress[3].style.width = p3 + '%';
+          panelStatus[3].textContent = '🔄 恢复中...';
+          panelDetail[3].innerHTML = `⚡ 修复尝试 <span>${p3}%</span> · 部分恢复`;
+        } else if (phase === 2) {
+          p3 += 1 + Math.floor(Math.random() * 2);
+          if (p3 > 100) p3 = 100;
+          panelProgress[3].style.width = p3 + '%';
+          panelStatus[3].textContent = '☠️ HACKED';
+          panelDetail[3].innerHTML = `🔴 目标已被完全控制 · 状态: <span>COMPROMISED</span>`;
+          if (p3 >= 100) {
+            panelStatus[3].textContent = '💀 HACKED · 完成';
+            panelDetail[3].innerHTML = '✅ 系统接管成功 · 所有数据可访问';
+            panelProgress[3].style.width = '100%';
+            clearInterval(p3interval);
           }
-          ctx.stroke();
-          ctx.shadowBlur = 0;
-
-          // fill under
-          ctx.fillStyle = color + '18';
-          ctx.beginPath();
-          for (let i=0; i<data.length; i++) {
-            const x = (i / maxPoints) * w;
-            const y = h - data[i] * h * 0.9 - 2;
-            if (i===0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-          }
-          ctx.lineTo(w, h);
-          ctx.lineTo(0, h);
-          ctx.closePath();
-          ctx.fill();
-
-          requestAnimationFrame(draw);
         }
-        draw();
-        return { resize };
-      }
+      }, 380);
 
-      const netGraph = initGraph('netCanvas', '#44ddff', 'NET');
-      const cpuGraph = initGraph('cpuCanvas', '#ff8844', 'CPU');
-      const waveGraph = initGraph('waveCanvas', '#77ff88', 'WAVE');
+      // store intervals for cleanup
+      intervalIds = [p0interval, p1interval, p2interval, p3interval];
 
-      // =============== extra live coords ===============
-      setInterval(() => {
-        const el = document.getElementById('mapCoords');
-        if (el) {
-          const ms = new Date().getMilliseconds();
-          const lat = 28.43 + 0.0001 * Math.sin(ms/500);
-          const lng = 69.32 + 0.0001 * Math.cos(ms/700);
-          el.innerText = `📍 ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+      // update timestamp on each panel with current PKT (ongoing)
+      const timeUpdater = setInterval(() => {
+        const pkt = getPakistanTime();
+        const ts = formatTime(pkt);
+        for (let i = 0; i < 4; i++) {
+          panelTime[i].textContent = ts;
         }
-      }, 800);
+      }, 1000);
+      intervalIds.push(timeUpdater);
 
-      // =============== FPS counter (hidden, but ensures no lag) ===============
-      let frameCount = 0;
-      function fpsLoop() {
-        frameCount++;
-        requestAnimationFrame(fpsLoop);
+      // stop all after 30 seconds (reset)
+      setTimeout(() => {
+        if (running) {
+          // keep panels as they are but we allow manual reset by pressing again
+          // we don't auto reset to keep hacked state visible
+        }
+      }, 35000);
+    }
+
+    // ------ event binding ------
+    attackBtn.addEventListener('click', function() {
+      const phone = phoneInput.value.trim() || '+92 300 1234567';
+      // if already running, stop and restart
+      if (running) {
+        resetPanels();
+        // start fresh after small delay
+        setTimeout(() => startHack(phone), 200);
+      } else {
+        startHack(phone);
       }
-      fpsLoop();
+    });
 
-      // resize graphs on window change
-      window.addEventListener('resize', () => {
-        setTimeout(() => {
-          netGraph.resize();
-          cpuGraph.resize();
-          waveGraph.resize();
-          resizeMap();
-        }, 80);
-      });
+    // Enter key on input
+    phoneInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        attackBtn.click();
+      }
+    });
 
-      console.log('🛸 HACK TERMINAL · RIZWAN TARGET LOCKED');
-    })();
-  </script>
+    // initial auto-start with demo number (so it looks alive)
+    window.addEventListener('load', function() {
+      // start with default phone after 800ms
+      setTimeout(() => {
+        startHack('+92 300 1234567');
+      }, 500);
+    });
+
+    // clean intervals on page unload (optional)
+    window.addEventListener('beforeunload', function() {
+      stopAllIntervals();
+    });
+
+  })();
+</script>
+
 </body>
-  </html>
+</html>
